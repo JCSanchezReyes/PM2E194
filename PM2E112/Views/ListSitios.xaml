@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Convertidor="clr-namespace:PM2E112.Converter" 
+             x:Class="PM2E112.Views.ListSitios">
+    <!--se declara recurso de pagina que se usa con la clase convertidor que creamos en el contenpage-->
+    <ContentPage.Resources>
+        <!--recurso de diccionario-->
+        <ResourceDictionary>
+            <!--se usa para disparar la funcion que ya tenemos-->
+            <Convertidor:ByteArrayToImage x:Key="ByteToImage"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <ContentPage.Content>
+        <StackLayout>
+
+            <ListView x:Name="Lista" ItemTapped="ListSitio_ItemTapped" SelectionMode="None">
+                <!--elemeto tocado para usar en cualquier momento-->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <!--se declaran menus-->
+                                <!--<MenuItem x:Name="IrMapa" Clicked="IrMapa_Clicked"  CommandParameter="{Binding .}" Text="Ir a mapa" />-->
+                                <MenuItem x:Name="Eliminar" Clicked="Eliminar_Clicked" CommandParameter="{Binding .}" Text="Eliminar" IsDestructive="True"/>
+                             </ViewCell.ContextActions>
+                            <Grid>
+                                <Label Grid.Column="0" Text="{Binding id}"/>
+                                <Label Grid.Column="1" Text="{Binding latitud}"/>
+                                <Label Grid.Column="3" Text="{Binding longitud}"/>
+                                <Label Grid.Column="4" Text="{Binding descripcion}"/>
+                                <Image Source="{Binding foto, Converter={StaticResource ByteToImage}}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>
